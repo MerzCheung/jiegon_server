@@ -2,4 +2,107 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ming.zhang.dao.CarDao">
 
+    <select id="getCarList" resultType="com.ming.zhang.entity.CarListEntity">
+        select
+        tb_id,
+        id,
+        layer_model,
+        name,
+        img
+        from car_list
+        <where>
+            <if test="isValid != null">
+                is_valid = #{isValid}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="getCarClassMap" type="com.ming.zhang.entity.CarClassEntity">
+        <id property="tbId" column="tb_id"/>
+        <result property="carType" column="car_type"/>
+        <collection property="classEntityList" ofType="com.ming.zhang.entity.CarClassEntity">
+            <id property="tbId" column="tb_id"/>
+            <result property="id" column="id"/>
+            <result property="carType" column="car_type"/>
+            <result property="carStyle" column="car_style"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCarClass" resultMap="getCarClassMap">
+        select
+        tb_id,
+        id,
+        car_list_id,
+        car_type,
+        car_style
+        from car_class
+        <where>
+            <if test="isValid != null">
+                and is_valid = #{isValid}
+            </if>
+            <if test="carListId != null">
+                and car_list_id = #{carListId}
+            </if>
+        </where>
+    </select>
+    <select id="getCarDetails" resultType="com.ming.zhang.entity.CarDetailsEntity">
+        select
+        tb_id,
+        id,
+        car_class_id,
+        car_year_id,
+        car_cc_id,
+        name,
+        from car_details
+        <where>
+            <if test="isValid != null">
+                and is_valid = #{isValid}
+            </if>
+            <if test="carClassId != null">
+                and car_class_id = #{carClassId}
+            </if>
+            <if test="carYearId != null">
+                and car_year_id = #{carYearId}
+            </if>
+            <if test="carCcId != null">
+                and car_cc_id = #{carCcId}
+            </if>
+        </where>
+    </select>
+    <select id="getAccumulatorConfig" resultType="com.ming.zhang.entity.CarAccumulatorConfigEntity">
+        select
+        tb_id,
+        car_details_id,
+        type,
+        name,
+        capacity,
+        specification,
+        pillar_type,
+        fixed_polarity
+        from car_accumulator_config
+        <where>
+            <if test="isValid != null">
+                and is_valid = #{isValid}
+            </if>
+            <if test="carDetailsId != null">
+                and car_details_id = #{carDetailsId}
+            </if>
+        </where>
+    </select>
+    <select id="getAccumulatorList" resultType="com.ming.zhang.entity.CarAccumulatorListEntity">
+        select
+        tb_id,
+        id,
+        car_details_id,
+        name
+        from car_accumulator_list
+        <where>
+            <if test="isValid != null">
+                and is_valid = #{isValid}
+            </if>
+            <if test="carDetailsId != null">
+                and car_details_id = #{carDetailsId}
+            </if>
+        </where>
+    </select>
 </mapper>
