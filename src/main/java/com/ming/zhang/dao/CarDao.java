@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface CarDao {
-    List<CarListEntity> getCarList(CarListEntity entity);
+    List<CarListMapEntity> getCarList(CarListEntity entity);
 
     List<CarClassEntity> getCarClass(CarClassEntity entity);
 
@@ -16,4 +16,8 @@ public interface CarDao {
     CarAccumulatorConfigEntity getAccumulatorConfig(CarAccumulatorConfigEntity entity);
 
     List<CarAccumulatorListEntity> getAccumulatorList(CarAccumulatorListEntity entity);
+
+    List<CarCcEntity> getCarCcList(Integer id);
+
+    List<CarYearEntity> getCarYearList(Integer id);
 }

@@ -6,7 +6,7 @@ import com.ming.zhang.entity.*;
 import java.util.List;
 
 public interface CarService {
-    List<CarListEntity> getCarList(CarListEntity entity);
+    List<CarListMapEntity> getCarList(CarListEntity entity);
 
     List<CarClassEntity> getCarClass(CarClassEntity carClassEntity);
 
@@ -15,4 +15,8 @@ public interface CarService {
     CarAccumulatorConfigEntity getAccumulatorConfig(CarAccumulatorConfigEntity carAccumulatorConfigEntity);
 
     List<CarAccumulatorListEntity> getAccumulatorList(CarAccumulatorListEntity carAccumulatorListEntity);
+
+    List<CarYearEntity> getCarYearList(Integer id);
+
+    List<CarCcEntity> getCarCcList(Integer id);
 }

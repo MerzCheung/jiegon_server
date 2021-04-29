@@ -2,7 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ming.zhang.dao.CarDao">
 
-    <select id="getCarList" resultType="com.ming.zhang.entity.CarListEntity">
+    <resultMap id="getCarListMap" type="com.ming.zhang.entity.CarListMapEntity">
+        <id property="layerModel" column="layer_model"/>
+        <collection property="carListEntitys" ofType="com.ming.zhang.entity.CarListEntity">
+            <id property="tbId" column="tb_id"/>
+            <result property="id" column="id"/>
+            <result property="layerModel" column="layer_model"/>
+            <result property="name" column="name"/>
+            <result property="img" column="img"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCarList" resultMap="getCarListMap">
         select
         tb_id,
         id,
@@ -18,8 +29,7 @@
     </select>
 
     <resultMap id="getCarClassMap" type="com.ming.zhang.entity.CarClassEntity">
-        <id property="tbId" column="tb_id"/>
-        <result property="carType" column="car_type"/>
+        <id property="carType" column="car_type"/>
         <collection property="classEntityList" ofType="com.ming.zhang.entity.CarClassEntity">
             <id property="tbId" column="tb_id"/>
             <result property="id" column="id"/>
@@ -52,7 +62,7 @@
         car_class_id,
         car_year_id,
         car_cc_id,
-        name,
+        name
         from car_details
         <where>
             <if test="isValid != null">
@@ -61,13 +71,14 @@
             <if test="carClassId != null">
                 and car_class_id = #{carClassId}
             </if>
-            <if test="carYearId != null">
+            <if test="carYearId != null and carYearId != 0">
                 and car_year_id = #{carYearId}
             </if>
-            <if test="carCcId != null">
+            <if test="carCcId != null and carCcId != 0">
                 and car_cc_id = #{carCcId}
             </if>
         </where>
+        order by id
     </select>
     <select id="getAccumulatorConfig" resultType="com.ming.zhang.entity.CarAccumulatorConfigEntity">
         select
@@ -104,5 +115,32 @@
                 and car_details_id = #{carDetailsId}
             </if>
         </where>
+    </select>
+
+    <select id="getCarYearList" resultType="com.ming.zhang.entity.CarYearEntity">
+        select
+        tb_id,
+        id as value,
+        car_class_id,
+        name as text
+        from car_year
+        where is_valid = 1
+        <if test="id != null">
+            and car_class_id = #{id}
+        </if>
+        order by name
+    </select>
+    <select id="getCarCcList" resultType="com.ming.zhang.entity.CarCcEntity">
+        select
+        tb_id,
+        id as value,
+        car_class_id,
+        name as text
+        from car_cc
+        where is_valid = 1
+        <if test="id != null">
+            and car_class_id = #{id}
+        </if>
+        order by name
     </select>
 </mapper>

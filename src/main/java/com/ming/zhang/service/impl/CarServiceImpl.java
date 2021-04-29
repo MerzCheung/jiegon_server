@@ -15,7 +15,7 @@ public class CarServiceImpl implements CarService {
     private CarDao carDao;
 
     @Override
-    public List<CarListEntity> getCarList(CarListEntity entity) {
+    public List<CarListMapEntity> getCarList(CarListEntity entity) {
         return carDao.getCarList(entity);
     }
 
@@ -37,5 +37,15 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarAccumulatorListEntity> getAccumulatorList(CarAccumulatorListEntity entity) {
         return carDao.getAccumulatorList(entity);
+    }
+
+    @Override
+    public List<CarYearEntity> getCarYearList(Integer id) {
+        return carDao.getCarYearList(id);
+    }
+
+    @Override
+    public List<CarCcEntity> getCarCcList(Integer id) {
+        return carDao.getCarCcList(id);
     }
 }

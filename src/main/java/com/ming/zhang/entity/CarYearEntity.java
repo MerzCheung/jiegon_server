@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CarYearEntity extends BaseEntity {
-    private Integer id;
+    private Integer value;
     private Integer carClassId;
-    private String name;
+    private String text;
 }

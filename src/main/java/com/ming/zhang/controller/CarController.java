@@ -23,7 +23,7 @@ public class CarController {
     public ResponseEntity getCarList() {
         CarListEntity entity = new CarListEntity();
         entity.setIsValid(1);
-        List<CarListEntity> res = carService.getCarList(entity);
+        List<CarListMapEntity> res = carService.getCarList(entity);
         return ResponseEntity.success(null, res);
     }
 
@@ -35,6 +35,18 @@ public class CarController {
         List<CarClassEntity> res = carService.getCarClass(carClassEntity);
         return ResponseEntity.success(null, res);
     }
+
+
+    @RequestMapping("/getCarConfig/{id}")
+    public ResponseEntity getCarConfig(@PathVariable("id") Integer id) {
+        List<CarYearEntity> yearEntities = carService.getCarYearList(id);
+        List<CarCcEntity> carCcEntities = carService.getCarCcList(id);
+        Map<String, List> map = new HashMap(2);
+        map.put("yearEntities", yearEntities);
+        map.put("carCcEntities", carCcEntities);
+        return ResponseEntity.success(null, map);
+    }
+
 
     @RequestMapping("/getCarDetails")
     public ResponseEntity getCarDetails(@RequestBody CarDetailsEntity entity) {
