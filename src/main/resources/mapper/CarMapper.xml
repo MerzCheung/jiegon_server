@@ -108,6 +108,7 @@
         name
         from car_accumulator_list
         <where>
+            and (name like '瓦尔塔%' or name like '骆驼%' or name like '风帆%')
             <if test="isValid != null">
                 and is_valid = #{isValid}
             </if>
